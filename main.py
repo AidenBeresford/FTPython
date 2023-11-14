@@ -11,6 +11,6 @@ encoding = args.encode
 
 FTP = Client(host, port, source_address, encoding)
 
-print(FTP.next_line(), end="")  # end="" just removes the newline that python adds
+print(FTP.next_line())
 
-FTP.close()
+close_resp = FTP.close()  # 0 is regular, 1 is irregular

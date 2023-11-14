@@ -43,4 +43,11 @@ class Client:
 
     def close(self):  # close our connection if it exists
         if self.my_socket is not None:
-            self.my_socket.close()
+            try:
+                self.my_socket.close()
+            except:
+                print("Connection could not be closed!")
+                return 1
+            else:
+                print("Connection closed successfully.")
+                return 0
