@@ -1,13 +1,13 @@
 from client import Client
+from args import args
 
-source_address = None
+host = args.host
+port = args.port
 
-encoding = 'utf-8'
+source_host, source_port = args.src
 
-host = ''
-port = 21
+source_address = (source_host, int(source_port))
+encoding = args.encode
 
-FTP = Client(host, port, source_address)
+FTP = Client(host, port, source_address, encoding)
 FTP.close()
-
-del FTP
