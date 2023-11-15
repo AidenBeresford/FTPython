@@ -11,6 +11,9 @@ encoding = args.encode
 
 FTP = Client(host, port, source_address, encoding)
 
-print(FTP.next_line())
+print(FTP.recv_line())
+FTP.send_line('PWD')
 
 close_resp = FTP.close()  # 0 is regular, 1 is irregular
+
+print("Socket closed with return code " + str(close_resp))

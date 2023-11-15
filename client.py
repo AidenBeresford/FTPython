@@ -27,7 +27,7 @@ class Client:
             self.my_socket = socket.create_connection((self.host, self.port), self.timeout, self.source_address)
             self.file = self.my_socket.makefile('r', encoding=self.encoding)
 
-    def next_line(self):
+    def recv_line(self):
         line = self.file.readline(LINE_CAPACITY)  # 4096 is our maximum line size in bytes
 
         if len(line) > LINE_CAPACITY:
@@ -41,13 +41,17 @@ class Client:
 
         return line
 
+    def send_line(self, line_in):
+        line = line_in + "\r\n"
+        line = line.encode(self.encoding)
+
+        self.my_socket.sendall(line)
+
     def close(self):  # close our connection if it exists
         if self.my_socket is not None:
             try:
                 self.my_socket.close()
             except:
-                print("Connection could not be closed!")
                 return 1
             else:
-                print("Connection closed successfully.")
                 return 0
