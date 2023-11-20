@@ -12,7 +12,9 @@ encoding = args.encode
 FTP = Client(host, port, source_address, encoding)
 
 print(FTP.recv_line())
-FTP.send_line('PWD')
+
+while((cmd := input()) != ''):
+    FTP.send_line(cmd)
 
 close_resp = FTP.close()  # 0 is regular, 1 is irregular
 
