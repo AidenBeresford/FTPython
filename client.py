@@ -45,7 +45,10 @@ class Client:
         line = line_in + "\r\n"
         line = line.encode(self.encoding)
 
-        self.my_socket.sendall(line)
+        try:
+            self.my_socket.sendall(line)
+        except BrokenPipeError:
+            raise BrokenPipeError("Broken pipe between client and server, is the connection closed?") from None
 
     def close(self):  # close our connection if it exists
         if self.my_socket is not None:
